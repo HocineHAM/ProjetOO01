@@ -2,6 +2,9 @@ package projPOO01.GestionPersonnes;
 
 import java.util.List;
 
+import projPOO01.Services.Achat;
+import projPOO01.Services.Commande;
+
 public class Fournisseur extends Personne implements IClient, IFournisseur {
 
 	String numeroUnique;
@@ -56,14 +59,14 @@ public class Fournisseur extends Personne implements IClient, IFournisseur {
 	}
 
 	@Override
-	public boolean testClient() {
+	public boolean estClient() {
 
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean testFournisseur() {
+	public boolean estFournisseur() {
 		// TODO Auto-generated method stub
 		return true;
 	}
