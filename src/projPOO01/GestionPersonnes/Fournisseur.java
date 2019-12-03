@@ -6,7 +6,7 @@ import projPOO01.Services.Achat;
 import projPOO01.Services.Commande;
 
 public class Fournisseur extends Personne implements IClient, IFournisseur {
-
+	private List<Commande> ListCommande;
 	String numeroUnique;
 
 	public Fournisseur(String nom, String prenom, String adresse, String ville, String codepostal,
@@ -46,6 +46,7 @@ public class Fournisseur extends Personne implements IClient, IFournisseur {
 
 	@Override
 	public void commande(List<Commande> c) {
+		this.ListCommande = ListCommande;
 		// TODO Auto-generated method stub
 
 	}

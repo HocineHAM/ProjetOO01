@@ -6,7 +6,7 @@ import projPOO01.Services.Achat;
 import projPOO01.Services.Commande;
 
 public class Client extends Personne implements IFournisseur, IClient {
-
+	private List<Achat> ListAchat;
 	private String numeroUnique;
 
 	public String getNumeroUnique() {
@@ -16,10 +16,12 @@ public class Client extends Personne implements IFournisseur, IClient {
 	public void setNumeroUnique(String numeroUnique) {
 		this.numeroUnique = numeroUnique;
 	}
+	
 
 	public Client(String nom, String prenom, String adresse, String ville, String codepostal, String numeroUnique) {
 		super(nom, prenom, adresse, ville, codepostal);
 		this.numeroUnique = numeroUnique;
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,7 +38,8 @@ public class Client extends Personne implements IFournisseur, IClient {
 	}
 
 	@Override
-	public void achete(List<Achat> listA) {
+	public void achete(List<Achat> ListAchat) {
+		this.ListAchat= ListAchat;
 		// TODO Auto-generated method stub
 		System.out.println("Le client qui achete");
 	}
@@ -61,6 +64,14 @@ public class Client extends Personne implements IFournisseur, IClient {
 	public boolean estClient() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public List<Achat> getListAchat() {
+		return ListAchat;
+	}
+
+	public void setListAchat(List<Achat> listAchat) {
+		ListAchat = listAchat;
 	}
 
 	@Override

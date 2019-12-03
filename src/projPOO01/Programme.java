@@ -1,7 +1,7 @@
 package projPOO01;
 
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,59 +20,63 @@ import projPOO01.Services.Achat;
 public class Programme {
 
 	private static List<IClient> lTouteslespersonnes = new ArrayList<IClient>();
-	private static List<IClient> lClients = new ArrayList<IClient>();
+	
 	static Scanner sc = new Scanner(System.in);
 
 	public static List<Achat> listAchat() {
 		List<Achat> la = new ArrayList<Achat>();
-		Date datesaisie = new Date();
-		String datestr;
-		boolean vouloirAcheter = true;
-		String acheterEncore;
-		
-		while (vouloirAcheter) {
-			
 
-		
-		System.out.println("Veuillez renter la Date d'achat");
-		datestr = sc.nextLine();
-		Locale locale = new Locale("fr", "FR");
-		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
-		try {
-			datesaisie = dateFormat.parse(datestr);
-			System.out.println(datesaisie);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Veuillez renter l'intitulé de l'achat");
-		String intitule = sc.nextLine();
-		System.out.println("Veuillez renter la quantité");
-		int quantite = sc.nextInt();
-		Achat achat = new Achat(datesaisie, intitule, quantite);
-		la.add(achat);
-		System.out.println("Voulez vous continuer vos achats? si oui tappez 1 sinon tappez 0");
-		acheterEncore= sc.nextLine(); 
-		if (acheterEncore!="1")
-		{
-			vouloirAcheter=false;
+		boolean vouloirAcheter = false;
+		String acheterEncore;
+		Date dt = null;
+		while (!vouloirAcheter) {
+
+			System.out.println("Veuillez renter la Date d'achat");
+			String datestr = sc.nextLine();
+
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+
+			try {
+
+				dt = sdf.parse(datestr);
+				System.out.println(dt);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Veuillez renter l'intitulé de l'achat");
+			String intitule = sc.nextLine();
+			System.out.println("Veuillez renter la quantité");
+			int quantite = sc.nextInt();
+			sc.nextLine();
+			Achat achat = new Achat(dt, intitule, quantite);
+
+			System.out.println("Voulez vous continuer vos achats? si oui tappez 1 sinon tappez 0");
+			acheterEncore = sc.nextLine();
+			if (acheterEncore.equals("1")) {
+				vouloirAcheter = false;
+			} else {
+				vouloirAcheter = true;
+
+			}
+			la.add(achat);
+			
 			
 		}
+
+		for (Achat list : la) {
+			System.out.println("Votre liste d'âchat :" + list.toString());
 		}
+
 		return la;
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-
-	
 		Programme.gererMenu();
-		/**
-		 * 
-		 * pour tester Programme.listAchat(); il faut mettre en commentaire Programme.gererMenu()!!!!!!!!!
-		 */
-		
+		Programme.choisirClient();
+		Programme.clientAcheteur(Programme.saisieCClient());
 		Programme.listAchat();
 
 	}
@@ -184,7 +188,7 @@ public class Programme {
 		ArrayList<Client> listC = new ArrayList<Client>();
 		// Scanner sc = new Scanner(System.in);
 		int i;
-		for (i = 0; i < 4; i++) {
+		for (i = 0; i < 2; i++) {
 			System.out.println("Veuillez renter votre nom :");
 			String n = sc.nextLine();
 			System.out.println("Veuillez renter votre prénom :");
@@ -262,8 +266,21 @@ public class Programme {
 				client.add(personne);
 		}
 		System.out.println("Liste des clients: " + client.toString());
-		lClients = client;
+	//	lClients = client;
 		return client;
+	}
+
+	public static Client clientAcheteur(List<Client> listC) {
+		for (Client cl : listC) {
+
+			System.out.println("choisi un client :" + listC.indexOf(cl) + "le client est" + cl.toString());
+		}
+		String s = sc.nextLine();
+		int st = Integer.parseInt(s);
+		Client c = listC.get(st);
+		
+		c.paie();
+		return c;
 	}
 
 	public static void gererMenu() {
