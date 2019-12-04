@@ -6,6 +6,23 @@ import projPOO01.Services.Achat;
 import projPOO01.Services.Commande;
 
 public class Fournisseur extends Personne implements IClient, IFournisseur {
+	private List<Achat> ListAchat;
+	public List<Achat> getListAchat() {
+		return ListAchat;
+	}
+
+	public void setListAchat(List<Achat> listAchat) {
+		ListAchat = listAchat;
+	}
+
+	public List<Commande> getListCommande() {
+		return ListCommande;
+	}
+
+	public void setListCommande(List<Commande> listCommande) {
+		ListCommande = listCommande;
+	}
+
 	private List<Commande> ListCommande;
 	String numeroUnique;
 
@@ -25,7 +42,8 @@ public class Fournisseur extends Personne implements IClient, IFournisseur {
 	}
 
 	@Override
-	public void achete(List<Achat> listA) {
+	public void achete(List<Achat> ListAchat) {
+		//this.ListAchat = listA;
 		System.out.println("Le fournisseur qui achete");
 		// TODO Auto-generated method stub
 

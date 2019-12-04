@@ -11,7 +11,8 @@ public class Salarie extends Personne implements IClient {
 	private String numeroSecu;
 	private String salaire;
 
-	public Salarie(String nom, String prenom, String adresse, String ville, String codepostal, String numeroSecu, String salaire) {
+	public Salarie(String nom, String prenom, String adresse, String ville, String codepostal, String numeroSecu,
+			String salaire) {
 		super(nom, prenom, adresse, ville, codepostal);
 		this.numeroSecu = numeroSecu;
 		this.salaire = salaire;
@@ -34,7 +35,6 @@ public class Salarie extends Personne implements IClient {
 		this.salaire = salaire;
 	}
 
-
 	@Override
 	public void achete(List<Achat> listA) {
 		// TODO Auto-generated method stub
@@ -44,7 +44,7 @@ public class Salarie extends Personne implements IClient {
 	@Override
 	public boolean paie() {
 		// TODO Auto-generated method stub
-return true;
+		return true;
 	}
 
 	@Override
@@ -70,15 +70,12 @@ return true;
 		}
 
 	}
-	
+
 	public static void ctrlNumSecu(String n) throws ErrNumSecu {
 		if (n.length() != 15) {
 			throw new ErrNumSecu("Le nombre de chiffre est different de 15!");
 		}
 
 	}
-
-	
-
 
 }
