@@ -6,6 +6,10 @@ import projPOO01.Services.Achat;
 import projPOO01.Services.Commande;
 
 public class Client extends Personne implements IFournisseur, IClient {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Achat> ListAchat;
 	private String numeroUnique;
 

@@ -1,12 +1,17 @@
 package projPOO01.GestionPersonnes;
 
+
+
 import projPOO01.Exceptions.ErrNumSecu;
 import projPOO01.Exceptions.ErreurFormatSalaire;
 
-public class Patron extends Salarie implements IPatron
-{
+public class Patron extends Salarie implements IPatron {
 	
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Patron(String nom, String prenom, String adresse, String ville, String codepostal, String numeroSecu,
 			String salaire) {
@@ -17,21 +22,21 @@ public class Patron extends Salarie implements IPatron
 	@Override
 	public void embauche() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void licencie() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void paiesalarie() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public static void ctrlSalaire(String z) throws ErreurFormatSalaire {
 		try {
 			Double.valueOf(z);
@@ -41,7 +46,7 @@ public class Patron extends Salarie implements IPatron
 		}
 
 	}
-	
+
 	public static void ctrlNumSecu(String n) throws ErrNumSecu {
 		if (n.length() != 15) {
 			throw new ErrNumSecu("Le nombre de chiffre est different de 15!");
@@ -58,4 +63,5 @@ public class Patron extends Salarie implements IPatron
 	}
 
 	
+
 }

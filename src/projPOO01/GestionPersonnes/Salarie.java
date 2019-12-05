@@ -8,9 +8,24 @@ import projPOO01.Services.Achat;
 
 public class Salarie extends Personne implements IClient {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String numeroSecu;
 	private String salaire;
 
+	/**
+	 * Constructeur de la class Salarie
+	 * 
+	 * @param nom
+	 * @param prenom
+	 * @param adresse
+	 * @param ville
+	 * @param codepostal
+	 * @param numeroSecu
+	 * @param salaire
+	 */
 	public Salarie(String nom, String prenom, String adresse, String ville, String codepostal, String numeroSecu,
 			String salaire) {
 		super(nom, prenom, adresse, ville, codepostal);
@@ -19,14 +34,26 @@ public class Salarie extends Personne implements IClient {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getNumeroSecu() {
 		return numeroSecu;
 	}
 
+	/**
+	 * 
+	 * @param numeroSecu
+	 */
 	public void setNumeroSecu(String numeroSecu) {
 		this.numeroSecu = numeroSecu;
 	}
 
+	/**
+	 * 
+	 * @return salaire
+	 */
 	public String getSalaire() {
 		return salaire;
 	}
@@ -41,6 +68,9 @@ public class Salarie extends Personne implements IClient {
 
 	}
 
+	/**
+	 * @return true
+	 */
 	@Override
 	public boolean paie() {
 		// TODO Auto-generated method stub
@@ -55,12 +85,23 @@ public class Salarie extends Personne implements IClient {
 				+ ", getCodepostal()=" + getCodepostal() + ", getClass()=" + getClass() + "]";
 	}
 
+	/**
+	 * Methode qui montre que le salarie est client
+	 * 
+	 * @return true
+	 */
 	@Override
 	public boolean estClient() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
+	/**
+	 * methode qui verifie le bon format du salaire elle n'accepte pas les lettres
+	 * 
+	 * @param z
+	 * @throws ErreurFormatSalaire
+	 */
 	public static void ctrlSalaire(String z) throws ErreurFormatSalaire {
 		try {
 			Double.valueOf(z);
@@ -71,6 +112,12 @@ public class Salarie extends Personne implements IClient {
 
 	}
 
+	/**
+	 * methode qui inpose 15 chiffres pour le numero de securite sociale
+	 * 
+	 * @param n
+	 * @throws ErrNumSecu
+	 */
 	public static void ctrlNumSecu(String n) throws ErrNumSecu {
 		if (n.length() != 15) {
 			throw new ErrNumSecu("Le nombre de chiffre est different de 15!");
