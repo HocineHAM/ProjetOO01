@@ -72,10 +72,12 @@ public class Saisies {
 
 		return patron;
 	}
-/**
- * methode qui permet de creer des fournisseurs et de remplir une liste
- * @return liste de fournisseurs
- */
+
+	/**
+	 * methode qui permet de creer des fournisseurs et de remplir une liste
+	 * 
+	 * @return liste de fournisseurs
+	 */
 	public static List<IClient> choisirClient() {
 		List<IClient> client = new ArrayList<IClient>();
 		List<IClient> Lcl = Saisies.lTouteslespersonnes;
@@ -84,7 +86,7 @@ public class Saisies {
 				client.add(personne);
 		}
 		System.out.println("Liste des clients: " + client.toString());
-		
+
 		return client;
 	}
 
@@ -108,7 +110,7 @@ public class Saisies {
 			String nu = sc.nextLine();
 
 			for (Fournisseur w : listFour) {
-				if (w.getNumeroUnique().equals(nu)) {
+				while (w.getNumeroUnique().equals(nu)) {
 					System.out.println("Le numéro unique existe déja! Veuillez le retapper");
 					nu = sc.nextLine();
 				}
@@ -120,10 +122,12 @@ public class Saisies {
 		}
 		return listFour;
 	}
-/**
- * methode qui permet de creer des salaries et de remplir une liste de salaries
- * @return liste de salarie
- */
+
+	/**
+	 * methode qui permet de creer des salaries et de remplir une liste de salaries
+	 * 
+	 * @return liste de salarie
+	 */
 	public static ArrayList<Salarie> saisieCSalarie() {
 		String w = "111";
 
@@ -179,10 +183,13 @@ public class Saisies {
 
 		return (ArrayList<Salarie>) lSalarie;
 	}
-/**
- * methode qui permet de creer des clients et de les mettres dans une liste de clients
- * @return liste de clients
- */
+
+	/**
+	 * methode qui permet de creer des clients et de les mettres dans une liste de
+	 * clients
+	 * 
+	 * @return liste de clients
+	 */
 	public static ArrayList<Client> saisieCClient() {
 		ArrayList<Client> listC = new ArrayList<Client>();
 		// Scanner sc = new Scanner(System.in);
@@ -198,12 +205,26 @@ public class Saisies {
 			String v = sc.nextLine();
 			System.out.println("Veuillez renter votre code postal:");
 			String c = sc.nextLine();
+			boolean verif = true;
+			while (verif) {
+				try {
+					Integer.parseInt(c);
+					verif = false;
+				} catch (Exception e) {
+					System.out.println("Votre code postale ne prends que des nombres, nous sommes en France!");
+					c = sc.nextLine();
+				}
+			}
+
 			System.out.println("Veuillez renter votre numéro unique:");
 			String nu = sc.nextLine();
+
 			for (Client z : listC) {
-				if (z.getNumeroUnique().equals(nu)) {
+				while (z.getNumeroUnique().equals(nu)) {
 					System.out.println("Le numéro unique existe déja! Veuillez le retapper");
+
 					nu = sc.nextLine();
+
 				}
 			}
 			Client cl = new Client(n, p, a, v, c, nu);
@@ -213,10 +234,14 @@ public class Saisies {
 		return listC;
 
 	}
-/**
- * methode qui regroupe l'ensemble des personnes(salaries, clients, patron et fournisseurs)
- * @return liste des toutes les personnes(salaries, clients, patron et fournisseurs)
- */
+
+	/**
+	 * methode qui regroupe l'ensemble des personnes(salaries, clients, patron et
+	 * fournisseurs)
+	 * 
+	 * @return liste des toutes les personnes(salaries, clients, patron et
+	 *         fournisseurs)
+	 */
 	public static List<IClient> toutesPersonnes() {
 		List<IClient> lc = new ArrayList<IClient>();
 		lc.addAll(Saisies.saisieCSalarie());
@@ -228,10 +253,9 @@ public class Saisies {
 	}
 
 	public static Client clientAcheteur(List<Client> listC) {
-		for (Client cl : listC) {
-
+		listC.forEach(cl -> {
 			System.out.println("choisi un client :" + listC.indexOf(cl) + "le client est" + cl.toString());
-		}
+		});
 		String s = sc.nextLine();
 		int st = Integer.parseInt(s);
 		Client c = listC.get(st);
@@ -279,10 +303,9 @@ public class Saisies {
 			la.add(achat);
 
 		}
-
-		for (Achat list : la) {
-			System.out.println("Votre liste d'âchat :" + list.toString());
-		}
+		la.forEach(a -> {
+			System.out.println("Votre liste d'âchat :" + a.toString());
+		});
 
 		return la;
 	}
