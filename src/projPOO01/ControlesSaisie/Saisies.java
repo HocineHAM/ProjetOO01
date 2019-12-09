@@ -4,8 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 import projPOO01.Exceptions.ErrNumSecu;
@@ -14,72 +16,87 @@ import projPOO01.GestionPersonnes.Client;
 import projPOO01.GestionPersonnes.Fournisseur;
 import projPOO01.GestionPersonnes.IClient;
 import projPOO01.GestionPersonnes.Patron;
+import projPOO01.GestionPersonnes.Personne;
 import projPOO01.GestionPersonnes.Salarie;
+import projPOO01.Menu.Menu;
 import projPOO01.Services.Achat;
 
 public class Saisies {
-
+	
+	public static Client c = new Client();
+	public static Fournisseur f = new Fournisseur();
+	public static Salarie s = new Salarie();
+	public static Patron p = new Patron();
+	public static Personne pers = new Personne();
 	public static List<IClient> lTouteslespersonnes = new ArrayList<IClient>();
 	public static Scanner sc = null;
+
+	
 
 	/**
 	 * methode pour saisir un patron
 	 * 
 	 * @return patron
 	 */
-	public static Patron saisiePatron() {
-		String numeroSecu = "0";
-		String salaire = "0";
+	public static Map<String, iSaisie> m = new HashMap<String, iSaisie>();
+	
+	public static void saisiePersonneGenerique() {
 
-		System.out.println("Veuillez renter votre nom :");
-		String nom = sc.nextLine();
-		System.out.println("Veuillez renter votre prénom :");
-		String prenom = sc.nextLine();
-		System.out.println("Veuillez renter votre adresse :");
-		String adresse = sc.nextLine();
-		System.out.println("Veuillez renter votre ville :");
-		String ville = sc.nextLine();
-		System.out.println("Veuillez renter votre code postale :");
-		String codepostal = sc.nextLine();
-		boolean errnumerosociale = true;
-		while (errnumerosociale)
-			try {
-				System.out.println("Veuillez renter votre numéro de sécurité sociale:");
-				numeroSecu = sc.nextLine();
-				Patron.ctrlNumSecu(numeroSecu);
-				errnumerosociale = false;
-			} catch (ErrNumSecu e) {
-
-				System.out.println(e.getMessage());
-			}
-
-		boolean errsalaire = true;
-		while (errsalaire)
-			try {
-				System.out.println("Veuillez renter votre salaire:");
-				salaire = sc.nextLine();
-				Patron.ctrlSalaire(salaire);
-
-				errsalaire = false;
-
-			} catch (ErreurFormatSalaire e) {
-
-				// e.printStackTrace();
-				System.out.println(e.getMessage());
-			}
-
-		Patron patron = new Patron(nom, prenom, adresse, ville, codepostal, numeroSecu, salaire);
-
-		return patron;
+		
+		m.put("1 Veuillez rentrer votre nom " + pers.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			pers.setNom(t);
+		});
+		m.put("2 Veuillez rentrer votre prénom " + pers.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			pers.setPrenom(t);
+		});
+		m.put("3 Veuillez rentrer votre adresse " + pers.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			pers.setAdresse(t);
+		});
+		m.put("4 Veuillez rentrer votre ville " + pers.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			pers.setVille(t);
+		});
+		m.put("5 Veuillez rentrer votre code postale " + pers.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			pers.setCodepostal(t);
+		});
+		//m.keySet().stream().sorted();
 	}
+	
+	public static void saisiePatron() {
+		
+		Saisies.saisiePersonneGenerique();
+		m.put("6 Veuillez rentrer votre numero de securité sociale " + p.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			p.setNumeroSecu(t);
+		});
+		m.put("7 Veuillez rentrer votre salaire " + p.getClass().getSimpleName(), (t) -> {
+			t = Saisies.sc.nextLine();
+			p.setSalaire(t);
+		});
+		
+		m.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(p -> {
+			System.out.println(p.getKey());
+			p.getValue().saisir(p.getKey());
+			
+		});
+		System.out.println(p.toString());
+	}
+
+
+
 
 	/**
 	 * methode qui permet de creer des fournisseurs et de remplir une liste
 	 * 
 	 * @return liste de fournisseurs
 	 */
-	public static List<IClient> choisirClient() {
+	public static void choisirClient() {
 		List<IClient> client = new ArrayList<IClient>();
+
 		List<IClient> Lcl = Saisies.lTouteslespersonnes;
 		for (IClient personne : Lcl) {
 			if (personne.estClient())
@@ -87,7 +104,7 @@ public class Saisies {
 		}
 		System.out.println("Liste des clients: " + client.toString());
 
-		return client;
+		
 	}
 
 	public static ArrayList<Fournisseur> saisieCFournisseur() {
@@ -96,30 +113,18 @@ public class Saisies {
 
 		int i;
 		for (i = 0; i < 3; i++) {
-			System.out.println("Veuillez renter votre nom :");
-			String n = sc.nextLine();
-			System.out.println("Veuillez renter votre prénom :");
-			String p = sc.nextLine();
-			System.out.println("Veuillez renter votre adresse :");
-			String a = sc.nextLine();
-			System.out.println("Veuillez renter votre Ville :");
-			String v = sc.nextLine();
-			System.out.println("Veuillez renter votre code postal:");
-			String c = sc.nextLine();
-			System.out.println("Veuillez renter votre numéro unique:");
-			String nu = sc.nextLine();
-
-			for (Fournisseur w : listFour) {
-				while (w.getNumeroUnique().equals(nu)) {
-					System.out.println("Le numéro unique existe déja! Veuillez le retapper");
-					nu = sc.nextLine();
-				}
-			}
-
-			Fournisseur fr = new Fournisseur(n, p, a, v, c, nu);
-			listFour.add(fr);
-
-		}
+			Saisies.saisiePersonneGenerique();
+			m.put("Veuillez renter votre numéro unique" + s.getClass().getSimpleName(), (t) -> {
+				t = Saisies.sc.nextLine();
+				f.setNumeroUnique(t);
+				
+				});
+			
+			listFour.add(f);
+			}		
+		listFour.forEach(lfournisseur -> {
+			System.out.println(lfournisseur.toString());
+		});
 		return listFour;
 	}
 
@@ -136,51 +141,29 @@ public class Saisies {
 
 		for (i = 0; i < 2; i++) {
 
-			System.out.println("Veuillez renter votre nom :");
-			String n = sc.nextLine();
-			System.out.println("Veuillez renter votre prénom :");
-			String p = sc.nextLine();
-			System.out.println("Veuillez renter votre adresse :");
-			String a = sc.nextLine();
-			System.out.println("Veuillez renter votre Ville :");
-			String v = sc.nextLine();
-			System.out.println("Veuillez renter votre code postal:");
-			String c = sc.nextLine();
-
-			boolean errnumerosociale = true;
-
-			while (errnumerosociale)
-				try {
-					System.out.println("Veuillez renter votre numéro de sécurité sociale:");
-					w = sc.nextLine();
-					Salarie.ctrlNumSecu(w);
-					errnumerosociale = false;
-				} catch (ErrNumSecu e) {
-
-					System.out.println(e.getMessage());
-				}
-			String z = "0";
-			boolean errsalaire = true;
-			while (errsalaire)
-				try {
-					System.out.println("Veuillez renter votre salaire:");
-					z = sc.nextLine();
-					Salarie.ctrlSalaire(z);
-
-					errsalaire = false;
-
-				} catch (ErreurFormatSalaire e) {
-
-					System.out.println(e.getMessage());
-				}
-
-			sc.nextLine();
-
-			Salarie s = new Salarie(n, p, a, v, c, w, a);
+			
+			Saisies.saisiePersonneGenerique();
+			m.put("Veuillez renter votre numero de securité sociale " + s.getClass().getSimpleName(), (t) -> {
+				t = Saisies.sc.nextLine();
+				s.setNumeroSecu(t);
+			});
+			m.put("Veuillez renter votre salaire " + s.getClass().getSimpleName(), (t) -> {
+				t = Saisies.sc.nextLine();
+				s.setSalaire(t);
+			});
+			
+			m.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(s -> {
+				System.out.println(s.getKey());
+				s.getValue().saisir(s.getKey());
+				
+			});
+			
 
 			lSalarie.add(s);
 		}
-
+		lSalarie.forEach(lsalarie -> {
+			System.out.println(lsalarie.toString());
+		});
 		return (ArrayList<Salarie>) lSalarie;
 	}
 
@@ -192,45 +175,34 @@ public class Saisies {
 	 */
 	public static ArrayList<Client> saisieCClient() {
 		ArrayList<Client> listC = new ArrayList<Client>();
-		// Scanner sc = new Scanner(System.in);
 		int i;
 		for (i = 0; i < 2; i++) {
-			System.out.println("Veuillez renter votre nom :");
-			String n = sc.nextLine();
-			System.out.println("Veuillez renter votre prénom :");
-			String p = sc.nextLine();
-			System.out.println("Veuillez renter votre adresse :");
-			String a = sc.nextLine();
-			System.out.println("Veuillez renter votre Ville :");
-			String v = sc.nextLine();
-			System.out.println("Veuillez renter votre code postal:");
-			String c = sc.nextLine();
-			boolean verif = true;
-			while (verif) {
-				try {
-					Integer.parseInt(c);
-					verif = false;
-				} catch (Exception e) {
-					System.out.println("Votre code postale ne prends que des nombres, nous sommes en France!");
-					c = sc.nextLine();
-				}
-			}
+			
+			Saisies.saisiePersonneGenerique();
+			m.put("Veuillez renter votre numéro unique" + c.getClass().getSimpleName(), (t) -> {
+				t = Saisies.sc.nextLine();
+				c.setNumeroUnique(t);
+				
+				});
+			
+			m.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(c -> {
+				System.out.println(c.getKey());
+				c.getValue().saisir(c.getKey());
+				
+			});
+			System.out.println(c.toString());
+		
+			m.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(s -> {
+				System.out.println(s.getKey());
+				s.getValue().saisir(s.getKey());
+				
+			});
 
-			System.out.println("Veuillez renter votre numéro unique:");
-			String nu = sc.nextLine();
-
-			for (Client z : listC) {
-				while (z.getNumeroUnique().equals(nu)) {
-					System.out.println("Le numéro unique existe déja! Veuillez le retapper");
-
-					nu = sc.nextLine();
-
-				}
-			}
-			Client cl = new Client(n, p, a, v, c, nu);
-			listC.add(cl);
+			listC.add(c);
 		}
 
+		listC.forEach(System.out::println);
+		
 		return listC;
 
 	}
@@ -247,7 +219,6 @@ public class Saisies {
 		lc.addAll(Saisies.saisieCSalarie());
 		lc.addAll(Saisies.saisieCFournisseur());
 		lc.addAll(Saisies.saisieCClient());
-		lc.add(Saisies.saisiePatron());
 		Saisies.lTouteslespersonnes = lc;
 		return lc;
 	}

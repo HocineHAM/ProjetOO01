@@ -29,6 +29,10 @@ public class Client extends Personne implements IFournisseur, IClient {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public boolean livre() {
 		// TODO Auto-generated method stub

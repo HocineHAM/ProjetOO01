@@ -69,6 +69,10 @@ public class Fournisseur extends Personne implements IClient, IFournisseur {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Fournisseur() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 * @return numero unique

@@ -34,6 +34,10 @@ public class Salarie extends Personne implements IClient {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Salarie() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 * @return

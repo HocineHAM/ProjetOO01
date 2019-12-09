@@ -19,6 +19,13 @@ public class Patron extends Salarie implements IPatron {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	public Patron() {
+		this("", "", "", "", "", "", "");
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@Override
 	public void embauche() {
 		// TODO Auto-generated method stub

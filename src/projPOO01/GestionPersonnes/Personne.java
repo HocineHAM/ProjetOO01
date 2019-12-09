@@ -41,6 +41,11 @@ public class Personne implements Serializable {
 	}
 
 
+	public Personne() {
+	// TODO Auto-generated constructor stub
+}
+
+
 	@Override
 	public String toString() {
 		return "Personne [nom=" + nom + ", prenom=" + prenom +
